@@ -14,9 +14,9 @@ double simpson(double a, double b, PF const f, unsigned n)
 
 	double current_term = f(a);
 
-	for(double i = 0.; i < static_cast<double>(n); i += 1.){
-		double const next_term = f(a + (i + 1.) * h);
-		sum += current_term + 4. * f(a + (i + 0.5) * h) + next_term;
+	for(unsigned i = 0.; i < n; i++){
+		double const next_term = f(a + (static_cast<double>(i) + 1.) * h);
+		sum += current_term + 4. * f(a + (static_cast<double>(i) + 0.5) * h) + next_term;
 		current_term = next_term;
 	}
 
