@@ -16,11 +16,11 @@ double simpson(double a, double b, PF const f, unsigned n)
 
 	for(double i = 0.; i < static_cast<double>(n); i += 1.){
 		double const next_term = f(a + (i + 1.) * h);
-		sum += current_term + f(a + (i + 0.5) * h) + next_term;
+		sum += current_term + 4. * f(a + (i + 0.5) * h) + next_term;
 		current_term = next_term;
 	}
 
-	return h * sum / 3.;
+	return h * sum / 6.;
 }
 
 int main(int argc, char** argv)
