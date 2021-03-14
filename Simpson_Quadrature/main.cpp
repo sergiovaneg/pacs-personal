@@ -1,13 +1,11 @@
 #include <iostream>
 
-using PF = double (*)(double);
-
 inline double my_function(double x)
 {
 	return x*x;
 }
-
-double simpson(double a, double b, PF const f, unsigned n)
+template <class Integrand>
+double simpson(double a, double b, Integrand const & f, unsigned n)
 {
 	double sum = 0.;
 	double const h = (b - a) / static_cast<double>(n);
