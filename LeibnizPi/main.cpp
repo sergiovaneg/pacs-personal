@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 
-double inline int_pow(double base, double exponent)
+constexpr inline double int_pow(double base, double exponent)
 {
 	double result = 1.;
 	for(unsigned i = 0; i < exponent; i++)
