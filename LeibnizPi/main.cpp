@@ -4,7 +4,7 @@
 
 constexpr inline double int_pow(double base, double exponent)
 {
-	double result = 1.;
+	double result{1.};
 	for(unsigned i = 0; i < exponent; i++)
 		result *= base;
 	return result;
@@ -12,8 +12,8 @@ constexpr inline double int_pow(double base, double exponent)
 
 constexpr double LeibnizPi(unsigned n_it)
 {
-	double sum = 0.;
-	unsigned n = 1;
+	double sum{0.};
+	unsigned n{1};
 	for(unsigned i = 0; i < n_it; i++){
 		sum += 2. / (static_cast<double>(n * (n+2)));
 		n += 4;
@@ -27,7 +27,7 @@ double RichardExtPi(unsigned n_it, double t)
 	std::vector<double> v1(n_it);
 	std::vector<double> v2(n_it);
 
-	unsigned h = 1;
+	unsigned h{1};
 	v1[0] = LeibnizPi(h);
 
 	for(unsigned i = 1; i < n_it; i++){
@@ -47,8 +47,8 @@ double RichardExtPi(unsigned n_it, double t)
 
 int main(int argc, char** argv)
 {
-	constexpr unsigned default_n_it = 10;
-	constexpr double default_t = 2.;
+	constexpr unsigned default_n_it{5};
+	constexpr double default_t{2.};
 
  	unsigned n = (argc == 3) ? std::stoul(*(argv+1)) : default_n_it;
 	unsigned t = (argc == 3) ? std::stod(*(argv+2)) : default_t;
