@@ -27,6 +27,66 @@ double fun3(T&& x){
     return 0;
 }
 
+class Foo
+{
+public:
+    // Constructor initilizes data
+    Foo(std::size_t n) : p{new double[n]}, n{n} {}
+
+    // Destructor clears the data (a new must be matched by a delete!)
+    ~Foo() {
+        delete[] p;
+    }
+
+    // Copy-constructor
+    Foo(const Foo & that) : p{new double[that.n]}, n{that.n} {
+        for(std::size_t i = 0; i < n; ++i)
+            *(p+i) = *(that.p+i);
+    }
+
+    // Copy-assignment
+    Foo & operator=(const Foo & that) {
+        delete[] p;
+        n = that.n;
+        p = new double[n];
+
+        for(std::size_t i = 0; i < n; ++i)
+            *(p+i) = *(that.p+i);
+
+        return *this;
+    }
+
+    // Move-constructor
+    Foo(Foo && that) 
+    {
+        p = that.p;
+        n = that.n;
+
+        that.p = nullptr;
+        that.n = 0;
+    }
+
+    //Move-operator
+    Foo & operator=(Foo && that)
+    {
+        delete[] p;
+        p = that.p;
+        n = that.n;
+
+        that.p = nullptr;
+        that.n = 0;
+
+        return *this;
+    }
+
+private:
+    // Always initialize pointers!
+    double * p = nullptr; 
+
+    // I need to know p's size to make a hard copy, but C-style arrays don't store this kind of information by themselves
+    std::size_t n; 
+};
+
 int main(int argc, char** argv){
     std::vector<double> v1{1000000, 10.};
     std::vector<double> v2{1000000, 10.};
@@ -37,7 +97,7 @@ int main(int argc, char** argv){
     auto stop1 = std::chrono::high_resolution_clock::now();
 
     auto start2 = std::chrono::high_resolution_clock::now();
-    fun2(v2);
+    fun2(std::move(v2));
     auto stop2 = std::chrono::high_resolution_clock::now();
 
     auto start3 = std::chrono::high_resolution_clock::now();
