@@ -1,4 +1,4 @@
-CXX      ?= g++
+CXX      ?= clang++
 CXXFLAGS ?= -std=c++17
 LINK.o := $(LINK.cc) # Use C++ linker (for implicit rule in line 25).
 

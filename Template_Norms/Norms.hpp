@@ -10,17 +10,11 @@ class Norms
 {
     const Container & myContainer;
 
-public:
-    Norms(Container const & c) : myContainer{c} {};
-
     template <unsigned int p, typename FAKE = void> struct Aux {
         static auto compute(const Container & myC) {
-            Container aux(myC.size());
-            std::transform(myC.cbegin(), myC.cend(),
-                        aux.begin(), [](auto i){return std::pow(i, p);});
-
-            return std::pow(std::accumulate(aux.cbegin(), aux.cend(), 0.),
-                        1./static_cast<double>(p));
+            return std::pow(std::accumulate(myC.cbegin(), myC.cend(), 0.,
+                        [](auto const & x, auto const & y) {return x + std::pow(std::abs(y), p);}),
+                        1./p);
         }
     };
 
@@ -30,6 +24,16 @@ public:
                                         [](auto i){return i;});
         }
     };
+
+    template <typename FAKE> struct Aux<1, FAKE> {
+        static auto compute(const Container & myC) {
+            return std::accumulate(myC.cbegin(), myC.cend(), 0.,
+                        [](auto const & x, auto const & y) {return x + std::abs(y);});
+        }
+    };
+
+public:
+    Norms(Container const & c) : myContainer{c} {};
 
     template <unsigned int p>
     auto compute() const
