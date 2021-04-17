@@ -40,7 +40,7 @@ int main()
   auto p6= pow<4>(p4);
   std::cout<<"p4^4="<<p6<<std::endl;
 
-  auto p7 = der<2>(p4);
+  auto p7 = der<5>(p4);
   std::cout << "d(p4)/dx = " << p7 << std::endl;
 }
                                

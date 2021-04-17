@@ -378,8 +378,8 @@ namespace apsc::LinearAlgebra
   {
     if constexpr (M == 0u)
       return p;
-    else if constexpr (RDegree == 0)
-      return Polynomial<0u,R>{{R(1)}};
+    else if constexpr (RDegree < M)
+      return Polynomial<0u,R>{{R(0)}};
     else{
       std::array<R, RDegree> C;
       for(size_t i = 1; i <= RDegree; ++i)
