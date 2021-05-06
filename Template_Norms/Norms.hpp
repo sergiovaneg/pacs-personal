@@ -5,6 +5,7 @@
 #include <numeric>
 #include <cmath>
 #include <type_traits>
+#include <execution>
 
 template <typename Container>
 class Norms
@@ -20,7 +21,7 @@ class Norms
     }
 
     auto compute(std::integral_constant<unsigned, 0>) const{
-        return std::count_if(myContainer.cbegin(), myContainer.cend(), [](auto i){return i;});
+        return std::count_if(std::execution::par, myContainer.cbegin(), myContainer.cend(), [](auto i){return i;});
     }
 
     auto compute(std::integral_constant<unsigned, 1>) const{
