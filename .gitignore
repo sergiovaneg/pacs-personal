@@ -30,6 +30,13 @@
 *.exe
 *.out
 *.app
+main
 
-# Ignore WarPact CSV files
+# Build folders
+**/build/
+
+# WarPact CSV files
 /WarPact/*.csv
+
+# VSCode Conf folders
+**/.vscode/
