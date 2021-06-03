@@ -38,5 +38,8 @@ main
 # WarPact CSV files
 /WarPact/*.csv
 
+# Matrix Product Output
+/ParallelMatrixProduct/b.csv
+
 # VSCode Conf folders
 **/.vscode/
